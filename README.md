@@ -2,6 +2,14 @@
 
 This monorepo provides some basic packages to make development of typescript based projects a little bit easier by providing out of the box solutions.
 
+## Packages
+
+- [@something.technology/core](packages/core)
+- [@something.technology/eslint-config](packages/eslint-config)
+- [@something.technology/microservice-utilities](packages/microservice-utilities)
+- [@something.technology/prettier-config](packages/prettier-config)
+- [@something.technology/ts-config](packages/ts-config)
+
 ## Lerna Commands
 
 **Add dependency to just one package:**
