@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 0.0.2 (2021-02-19)
+
+
+### Performance Improvements
+
+* set version in packages ([18c1341](https://github.com/Something-Technology/something-ts/commit/18c134188bdf54ef8e47d90db500bc80ad0b4706))
+
+
+
+
+
 ## 0.0.1-beta.2 (2021-02-19)
 
 

@@ -28,7 +28,7 @@ jobs:
           git config --global user.email "ci@something.technology"
           git config --global user.name "Something Technology CI"
           npm whoami
-      - name: Release beta to NPM
+      - name: Release to NPM
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
