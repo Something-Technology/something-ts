@@ -1,0 +1,36 @@
+name: NPM Beta Release
+on:
+  push:
+    branches:
+      - beta
+
+jobs:
+  release:
+    name: Beta Release
+    runs-on: ubuntu-18.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: 12
+      - name: Lerna bootstrap
+        run: npx lerna bootstrap
+      - name: Lerna build
+        run: npx lerna run build
+      - name: Use NPM Token
+        env:
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: echo //registry.npmjs.org/:_authToken=${NPM_TOKEN} > .npmrc
+      # TODO: add ci@something.technology email
+      - name: Configure Git User
+        run: |
+          git config --global user.email "philip.lenhart@something.technology"
+          git config --global user.name "SomethingTechnologyCI"
+          npm whoami
+      - name: Release beta to NPM
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: npx lerna publish --dist-tag beta --no-verify-access --yes

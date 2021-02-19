@@ -1,0 +1,8 @@
+node_modules
+dist
+.npmrc
+.yarnrc
+.idea
+.vscode
+.DS_Store
+*.log

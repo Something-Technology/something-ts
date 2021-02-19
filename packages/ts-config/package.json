@@ -1,0 +1,28 @@
+{
+  "name": "@something.technology/ts-config",
+  "version": "0.0.1-beta.0",
+  "description": "Shared TypeScript config all our typescript based projects",
+  "license": "MIT",
+  "author": {
+    "name": "Philip Lenhart",
+    "email": "philip.lenhart@something.technology"
+  },
+  "main": "tsconfig.json",
+  "engines": {
+    "node": ">=10"
+  },
+  "files": [
+    "tsconfig.json"
+  ],
+  "keywords": [
+    "tsconfig",
+    "typescript",
+    "ts",
+    "config",
+    "configuration"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "gitHead": "4aaf1937926b4e48914717baa6f507a4f4a26f4d"
+}

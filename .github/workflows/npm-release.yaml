@@ -1,0 +1,30 @@
+name: NPM Release
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  release:
+    name: NPM Release
+    runs-on: ubuntu-18.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v1
+      - name: Setup Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: 12
+      - name: Lerna bootstrap
+        run: npx lerna bootstrap
+      - name: Lerna build
+        run: npx lerna run build
+      - name: Use NPM Token
+        env:
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: echo //registry.npmjs.org/:_authToken=${NPM_TOKEN} > .npmrc
+      - name: Release beta to NPM
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: npx lerna publish --yes

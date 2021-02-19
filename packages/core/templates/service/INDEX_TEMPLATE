@@ -1,0 +1,25 @@
+import express from 'express';
+import { logger, healthcheck } from '@something.technology/microservice-utilities';
+
+const PORT = process.env.PORT || 3000;
+const HEALTHCHECK_ROUTE = process.env.HEALTHCHECK_ROUTE || '/health';
+
+const run = async (): Promise<void> => {
+  try {
+    const app = express();
+
+    app.get('/', (_, res) => {
+      res.send('Hello Something!');
+    });
+
+    app.get(HEALTHCHECK_ROUTE, healthcheck);
+
+    app.listen(PORT, () => {
+      logger.info(`Example app listening at http://localhost:${PORT}`);
+    });
+  } catch (e) {
+    logger.error(e);
+  }
+};
+
+run().then(() => {});

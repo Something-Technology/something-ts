@@ -1,0 +1,8 @@
+{
+  "extends": "@something.technology/ts-config",
+  "compilerOptions": {
+    "outDir": "dist",
+    "target": "es5",
+    "lib": ["es6", "es2015"],
+  }
+}

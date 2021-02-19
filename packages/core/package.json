@@ -1,0 +1,57 @@
+{
+  "name": "@something.technology/core",
+  "version": "0.0.1-beta.0",
+  "description": "Shared TypeScript config all our typescript based projects",
+  "license": "MIT",
+  "author": {
+    "name": "Philip Lenhart",
+    "email": "philip.lenhart@something.technology"
+  },
+  "bin": {
+    "ts-service": "./dist/bin/tsService.js"
+  },
+  "scripts": {
+    "build:static": "cp -r ./templates ./dist/templates",
+    "build": "rm -rf ./dist && tsc && yarn build:static",
+    "lint": "yarn eslint -c ./templates/service/.eslintrc.js \"*/**/*.ts\" --max-warnings=0",
+    "pretty": "prettier \"*/**/*.ts\"",
+    "pretty:fix": "prettier --write \"*/**/*.ts\"",
+    "cli:ts-service": "ts-node bin/tsService.ts",
+    "cli:ts-service:help": "ts-node bin/initProject.ts -h",
+    "install:global": "yarn build && yarn global add file:$PWD"
+  },
+  "main": "./dist/bin/tsService.js",
+  "engines": {
+    "node": ">=10"
+  },
+  "keywords": [
+    "core",
+    "typescript",
+    "ts",
+    "config",
+    "configuration"
+  ],
+  "dependencies": {
+    "chalk": "^4.1.0",
+    "clear": "^0.1.0",
+    "commander": "^7.0.0",
+    "edit-json-file": "^1.5.0",
+    "figlet": "^1.5.0",
+    "inquirer": "^7.3.3",
+    "shelljs": "^0.8.4",
+    "ts-node": "^9.1.1"
+  },
+  "devDependencies": {
+    "@something.technology/ts-config": "file:../ts-config",
+    "@types/clear": "^0.1.1",
+    "@types/commander": "^2.12.2",
+    "@types/edit-json-file": "^1.4.0",
+    "@types/figlet": "^1.2.1",
+    "@types/inquirer": "^7.3.1",
+    "@types/shelljs": "^0.8.8"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "gitHead": "4aaf1937926b4e48914717baa6f507a4f4a26f4d"
+}

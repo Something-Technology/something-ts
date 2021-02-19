@@ -1,0 +1,28 @@
+{
+  "name": "@something.technology/microservice-utilities",
+  "version": "0.0.1-beta.0",
+  "description": "This library provides utilities which are helpful when building typescript based microservices. ",
+  "author": {
+    "name": "Philip Lenhart",
+    "email": "philip.lenhart@something.technology"
+  },
+  "scripts": {
+    "build": "rm -rf ./dist && tsc"
+  },
+  "main": "./dist/index.js",
+  "license": "MIT",
+  "dependencies": {
+    "@types/pino": "^6.3.5",
+    "express": "^4.17.1",
+    "pino": "^6.11.0",
+    "pino-pretty": "^4.5.0"
+  },
+  "devDependencies": {
+    "@something.technology/ts-config": "file:../ts-config",
+    "@types/express": "^4.17.11"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "gitHead": "4aaf1937926b4e48914717baa6f507a4f4a26f4d"
+}
