@@ -12,7 +12,7 @@ export const PRETTIER_FILENAME = '.prettierrc.js';
 export const ESLINT_FILENAME = '.eslintrc.js';
 export const TSCONFIG_FILENAME = 'tsconfig.json';
 export const LICENSE_FILENAME = 'LICENSE';
-export const GITIGNORE_FILENAME = '.gitignore';
+export const GITIGNORE_FILENAME = 'GITIGNORE_TEMPLATE';
 export const SERVICE_INDEX_FILENAME = 'INDEX_TEMPLATE';
 
 const DEV_PACKAGES = [

@@ -43,7 +43,7 @@ const initService = ({ target, type = ServiceType.SERVICE }: InitService): void 
   cp(
     '-Rf',
     path.join(templateFolder, GITIGNORE_FILENAME),
-    path.join(targetFolder, GITIGNORE_FILENAME)
+    path.join(targetFolder, '.gitignore')
   );
 
   const isReactProject = type.includes('react');
@@ -74,7 +74,10 @@ const initService = ({ target, type = ServiceType.SERVICE }: InitService): void 
   packageFile.set('scripts.build', 'rm -rf ./dist && tsc');
   packageFile.set('scripts.lint', `eslint -c ./${ESLINT_FILENAME} "*/**/*.ts" --max-warnings=0`);
   packageFile.set('scripts.lint:fix', 'yarn lint --fix');
-  packageFile.set('scripts.serve:dev', 'ts-node ./src/index.ts');
+
+  if (!isReactProject) {
+    packageFile.set('scripts.serve:dev', 'ts-node ./src/index.ts');
+  }
 
   packageFile.save();
 
