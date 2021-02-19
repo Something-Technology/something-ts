@@ -7,9 +7,7 @@
     "name": "Philip Lenhart",
     "email": "philip.lenhart@something.technology"
   },
-  "bin": {
-    "ts-service": "./dist/bin/tsService.js"
-  },
+  "bin": "./dist/bin/tsService.js",
   "scripts": {
     "build:static": "cp -r ./templates ./dist/templates",
     "build": "rm -rf ./dist && tsc && yarn build:static",
