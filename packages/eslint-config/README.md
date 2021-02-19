@@ -1,0 +1,1 @@
+# @something.technology/eslint-config
