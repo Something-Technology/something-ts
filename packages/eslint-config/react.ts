@@ -6,9 +6,8 @@ module.exports = {
     'airbnb-typescript',
     'plugin:@typescript-eslint/recommended',
     'plugin:jest/recommended',
-    'prettier/@typescript-eslint',
+    'prettier',
     'plugin:prettier/recommended',
-    'prettier/react',
   ],
   plugins: ['react-hooks', 'jest'],
   env: {

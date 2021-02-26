@@ -3,6 +3,36 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 0.0.5 (2021-02-19)
+
+
+### Performance Improvements
+
+* fix react init script ([c28c656](https://github.com/Something-Technology/something-ts/commit/c28c656597cfc5553e30ea9ca92f7c2d87f3fd22))
+
+
+
+
+
+## 0.0.4 (2021-02-19)
+
+
+### Performance Improvements
+
+* adaot core bin script ([8a2e0f9](https://github.com/Something-Technology/something-ts/commit/8a2e0f9300f082439060384e36281d08a9dd1105))
+
+
+
+
+
+## 0.0.3 (2021-02-19)
+
+**Note:** Version bump only for package @something.technology/eslint-config
+
+
+
+
+
 ## 0.0.2 (2021-02-19)
 
 

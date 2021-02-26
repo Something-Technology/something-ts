@@ -1,15 +1,13 @@
 {
   "name": "@something.technology/core",
-  "version": "0.0.2",
+  "version": "0.0.5",
   "description": "Shared TypeScript config all our typescript based projects",
   "license": "MIT",
   "author": {
     "name": "Philip Lenhart",
     "email": "philip.lenhart@something.technology"
   },
-  "bin": {
-    "ts-service": "./dist/bin/tsService.js"
-  },
+  "bin": "./dist/bin/tsService.js",
   "scripts": {
     "build:static": "cp -r ./templates ./dist/templates",
     "build": "rm -rf ./dist && tsc && yarn build:static",
@@ -34,7 +32,7 @@
   "dependencies": {
     "chalk": "^4.1.0",
     "clear": "^0.1.0",
-    "commander": "^7.0.0",
+    "commander": "^7.1.0",
     "edit-json-file": "^1.5.0",
     "figlet": "^1.5.0",
     "inquirer": "^7.3.3",
