@@ -3,8 +3,8 @@ import reactRules from './rules/react';
 
 module.exports = {
   extends: [
-    'airbnb-typescript',
     'plugin:@typescript-eslint/recommended',
+    'airbnb-typescript',
     'plugin:jest/recommended',
     'prettier',
     'plugin:prettier/recommended',
