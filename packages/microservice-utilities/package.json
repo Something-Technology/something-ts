@@ -1,6 +1,6 @@
 {
   "name": "@something.technology/microservice-utilities",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "This library provides utilities which are helpful when building typescript based microservices. ",
   "author": {
     "name": "Philip Lenhart",

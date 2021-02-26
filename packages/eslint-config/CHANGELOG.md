@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 0.0.7 (2021-02-26)
+
+
+### Bug Fixes
+
+* fix react unused vars rules for typings ([21927b8](https://github.com/Something-Technology/something-ts/commit/21927b8904489053044801e064394f108267146e))
+
+
+
+
+
 ## 0.0.6 (2021-02-26)
 
 
