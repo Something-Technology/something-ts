@@ -40,11 +40,7 @@ const initService = ({ target, type = ServiceType.SERVICE }: InitService): void 
 
   // TODO: ask if file should be overridden when already existing
   cp('-Rf', path.join(templateFolder, LICENSE_FILENAME), path.join(targetFolder, LICENSE_FILENAME));
-  cp(
-    '-Rf',
-    path.join(templateFolder, GITIGNORE_FILENAME),
-    path.join(targetFolder, '.gitignore')
-  );
+  cp('-Rf', path.join(templateFolder, GITIGNORE_FILENAME), path.join(targetFolder, '.gitignore'));
 
   const isReactProject = type.includes('react');
   if (!isReactProject) {
