@@ -32,7 +32,7 @@
   "dependencies": {
     "chalk": "^4.1.0",
     "clear": "^0.1.0",
-    "commander": "^7.0.0",
+    "commander": "^7.1.0",
     "edit-json-file": "^1.5.0",
     "figlet": "^1.5.0",
     "inquirer": "^7.3.3",
