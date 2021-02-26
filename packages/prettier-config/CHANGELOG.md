@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 0.0.6 (2021-02-26)
+
+
+### Bug Fixes
+
+* dependency resolution ([66cca24](https://github.com/Something-Technology/something-ts/commit/66cca241acecaa70ca01a7f38f6ee3549a5ada12))
+
+
+
+
+
 ## 0.0.5 (2021-02-19)
 
 
