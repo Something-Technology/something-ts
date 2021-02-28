@@ -7,12 +7,39 @@
  *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-import { logger, createLogger } from './logger';
-import { healthcheck } from './express/healthcheck';
-import KafkaController from './kafka/KafkaController';
-import TopicUpdater from './kafka/TopicUpdater';
-import type { SchemaConfig, SubscriptionCallback, Headers } from './kafka/types';
 
-export { logger, createLogger, healthcheck, KafkaController, TopicUpdater };
+/**
+ * we need to remove null values from our consumed objects (avroEntity) since typescript interfaces won't contain null values
+ *
+ * @param avroEntity
+ */
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
+export const avroToTypescript = (avroEntity: any): any => {
+  return JSON.parse(JSON.stringify(avroEntity), (_, value) => {
+    if (value == null) {
+      return undefined;
+    }
+    return value;
+  });
+};
 
-export type { Headers, SchemaConfig, SubscriptionCallback };
+type BufferedObject = {
+  [key: string]: Buffer | string | undefined | BufferedObject;
+};
+
+/**
+ * Data which is sent via Kafka will most likely be buffered.
+ * Therefore we want to provide this utility function in order to handle Buffer to string convertion at one central place
+ *
+ * @param buffered
+ */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const stringifyBuffered = (buffered: BufferedObject): any => {
+  return JSON.parse(JSON.stringify(buffered), (_, value) => {
+    if (Buffer.isBuffer(value)) {
+      return value.toString();
+    }
+
+    return value;
+  });
+};
