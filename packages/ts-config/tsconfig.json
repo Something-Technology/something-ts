@@ -13,7 +13,7 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "declaration": true,
-    "outDir": ".",
+    "outDir": "dist",
     "strict": true,
     "noFallthroughCasesInSwitch": true,
     "noImplicitAny": true,
@@ -24,6 +24,13 @@
     "types": ["node"]
   },
   "exclude": [
-    "node_modules", "dist"
+    "node_modules",
+    "dist",
+    "__tests__",
+    "**/*.spec.ts",
+    "**/*.test.ts",
+    "**/*.test.tsx",
+    "**/*.spec.tsx",
+    "**/*.snap"
   ]
 }

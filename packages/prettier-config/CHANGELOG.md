@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.0.8](https://github.com/Something-Technology/something-ts/compare/@something.technology/prettier-config@0.0.7...@something.technology/prettier-config@0.0.8) (2021-03-23)
+
+
+### Performance Improvements
+
+* add separate tsconfigs for react and react native and adapt eslint and prettier configs according to our needs ([ace665f](https://github.com/Something-Technology/something-ts/commit/ace665fe0381fb11b1c369fa504f89e77915ea03))
+
+
+
+
+
 ## 0.0.7 (2021-02-26)
 
 

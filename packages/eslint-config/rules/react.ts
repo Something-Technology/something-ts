@@ -17,4 +17,5 @@ export default {
       ],
     },
   ],
+  'react/require-default-props': LintingLevel.OFF, // not needed with typescript
 };
