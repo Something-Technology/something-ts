@@ -12,7 +12,9 @@
     "node": ">=10"
   },
   "files": [
-    "tsconfig.json"
+    "tsconfig.json",
+    "react.json",
+    "react-native.json"
   ],
   "keywords": [
     "tsconfig",
