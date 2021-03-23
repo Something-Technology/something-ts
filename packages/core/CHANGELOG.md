@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 0.0.9 (2021-03-23)
+
+**Note:** Version bump only for package @something.technology/core
+
+
+
+
+
 ## [0.0.8](https://github.com/Something-Technology/something-ts/compare/@something.technology/core@0.0.7...@something.technology/core@0.0.8) (2021-03-23)
 
 **Note:** Version bump only for package @something.technology/core
