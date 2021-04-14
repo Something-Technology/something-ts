@@ -7,8 +7,26 @@
  *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-import { logger, createLogger } from './logger';
-import { healthcheck } from './express/healthcheck';
-import HTTPStatusCode from './express/types/HTTPStatusCode';
 
-export { logger, createLogger, healthcheck, HTTPStatusCode };
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+type SocketMessagePayload = Record<string, any>;
+
+export type SocketMessage = {
+  type: string;
+  payload: SocketMessagePayload;
+};
+
+export type IncomingKafkaMessage = SocketMessage & {
+  meta: Record<string, string>;
+};
+
+export type KafkaMessage = {
+  type: string;
+  data: {
+    payload: SocketMessagePayload;
+    meta: Record<string, string>;
+  };
+  headers: Record<string, string | Buffer>;
+};
+
+export default SocketMessage;
