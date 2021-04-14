@@ -7,8 +7,42 @@
  *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-import { logger, createLogger } from './logger';
-import { healthcheck } from './express/healthcheck';
-import HTTPStatusCode from './express/types/HTTPStatusCode';
 
-export { logger, createLogger, healthcheck, HTTPStatusCode };
+import { createAction } from 'typesafe-actions';
+import {
+  DISCONNECT_SOCKET_CONNECTION,
+  ON_SOCKET_CONNECT,
+  ON_SOCKET_CONNECTION_ERROR,
+  ON_SOCKET_DISCONNECT,
+  OPEN_SOCKET_CONNECTION,
+} from './constants';
+import { OnSocketDisconnectPayload, AdditionalInfo, OnSocketConnectionErrorPayload } from './types';
+
+export const openSocketConnection = createAction(
+  OPEN_SOCKET_CONNECTION,
+  () => undefined
+)<undefined>();
+
+export const disconnectSocketConnection = createAction(
+  DISCONNECT_SOCKET_CONNECTION,
+  () => undefined
+)<undefined>();
+
+export const onSocketConnect = createAction(ON_SOCKET_CONNECT, (socketId: string) => ({
+  socketId,
+}))<{
+  socketId: string;
+}>();
+
+export const onSocketDisconnect = createAction(
+  ON_SOCKET_DISCONNECT,
+  (error: string, additionalInfo: AdditionalInfo) => ({
+    error,
+    additionalInfo,
+  })
+)<OnSocketDisconnectPayload>();
+
+export const onSocketConnectionError = createAction(
+  ON_SOCKET_CONNECTION_ERROR,
+  (error: Error, additionalInfo: AdditionalInfo) => ({ error, additionalInfo })
+)<OnSocketConnectionErrorPayload>();
