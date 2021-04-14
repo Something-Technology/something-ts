@@ -8,6 +8,8 @@ This monorepo provides some basic packages to make development of typescript bas
 - [@something.technology/eslint-config](packages/eslint-config)
 - [@something.technology/microservice-utilities](packages/microservice-utilities)
 - [@something.technology/prettier-config](packages/prettier-config)
+- [@something.technology/redux-connector](packages/redux-connector)
+- [@something.technology/socket-connector](packages/socket-connector)
 - [@something.technology/ts-config](packages/ts-config)
 
 ## Lerna Commands
