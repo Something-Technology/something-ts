@@ -7,8 +7,33 @@
  *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-import { logger, createLogger } from './logger';
-import { healthcheck } from './express/healthcheck';
-import HTTPStatusCode from './express/types/HTTPStatusCode';
 
-export { logger, createLogger, healthcheck, HTTPStatusCode };
+import type { MessageMocks } from '../../types/socketConnector';
+import type { SocketMessage } from '../../types/SocketMessage';
+
+export const loginMock: MessageMocks = {
+  LoginRequest: {
+    createOutgoingMessage: ({ payload }: SocketMessage): SocketMessage => {
+      const { email } = payload;
+
+      return {
+        type: 'LoginResponse',
+        payload: {
+          success: email.includes('@ikooko.io'),
+          email,
+          expiryDate: Date.now() + 1000 * 60 * 15, // in 15mins
+          error: email.includes('@ikooko.io')
+            ? undefined
+            : {
+                status: 401,
+                message: 'Unauthorized! Please use @ikooko.io email to login.',
+              },
+        },
+      };
+    },
+  },
+};
+
+export const defaultMocks: MessageMocks = {
+  ...loginMock,
+};
