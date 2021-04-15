@@ -1098,7 +1098,7 @@
     "@types/node" ">= 8"
 
 "@something.technology/microservice-utilities@file:packages/microservice-utilities":
-  version "0.0.8"
+  version "0.0.10"
   dependencies:
     "@types/pino" "^6.3.5"
     express "^4.17.1"
@@ -1106,7 +1106,7 @@
     pino-pretty "^4.5.0"
 
 "@something.technology/ts-config@file:packages/ts-config":
-  version "0.0.8"
+  version "0.0.10"
 
 "@types/body-parser@*":
   version "1.19.0"

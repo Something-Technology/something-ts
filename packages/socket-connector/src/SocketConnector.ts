@@ -11,7 +11,6 @@
 import express, { Express } from 'express';
 import { logger, healthcheck } from '@something.technology/microservice-utilities';
 import { createServer } from 'http';
-import packageJSON from '../package.json';
 import { HEALTHCHECK_ROUTE, PORT } from './config/server';
 import SocketConnection from './services/SocketConnection';
 import { SocketConnectorConfig } from './types/socketConnector';
@@ -43,7 +42,7 @@ class SocketConnector {
     app.get(HEALTHCHECK_ROUTE, healthcheck);
 
     server.listen(PORT, () => {
-      logger.info(`${packageJSON.name} app listening at http://localhost:${PORT}`);
+      logger.info(`app listening at http://localhost:${PORT}`);
     });
   }
 }
