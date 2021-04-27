@@ -17,12 +17,12 @@ import ClientEmitter from '../ClientEmitter';
 const sendMocked = (socket: Socket, message: SocketMessage): boolean => {
   const mocks = Configuration.getInstance().getMocks();
   if (mocks && mocks[message.type]) {
-    const { createOutgoingMessage } = mocks[message.type];
+    const { createOutgoingMessage, delay = 100 } = mocks[message.type];
     const outgoingMsg = createOutgoingMessage(message);
     if (outgoingMsg) {
       setTimeout(() => {
         ClientEmitter.emit(socket, outgoingMsg);
-      }, 100);
+      }, delay);
       return true;
     }
   }

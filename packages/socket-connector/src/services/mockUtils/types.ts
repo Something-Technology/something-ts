@@ -8,19 +8,46 @@
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-import type { SocketMessage } from './SocketMessage';
+export type TokenData = {
+  iss: string;
+  iat: number;
+  exp: number;
+  aud: string;
+  sub: string;
+  role?: string | string[]
+}
 
-export type MessageMock = {
-  createOutgoingMessage: (incomingMessage: SocketMessage) => SocketMessage | undefined;
-  delay?: number;
-};
+export type CustomError = {
+  status: number
+  message: string
+}
 
-export type MessageMocks = {
-  [key: string]: MessageMock;
-};
+type ResponsePayload<D> = {
+  data?: D;
+  error?: CustomError,
+}
 
-export type SocketConnectorConfig = {
-  socketServerPath?: string;
-  serviceId: string;
-  responseMessageMocks?: MessageMocks;
-};
+type ResponseMessage<D, T extends string = string> = {
+  type: T;
+  payload: ResponsePayload<D>
+}
+
+export type LoginResponse = ResponseMessage<{
+  token: string
+}, 'LoginResponse'>
+
+export type LogoutResponse = ResponseMessage<{
+  success: boolean
+}, 'LogoutResponse'>
+
+export type RegistrationResponse = ResponseMessage<{
+  success: boolean
+}, 'RegistrationResponse'>
+
+export type ForgotPasswordResponse = ResponseMessage<{
+  message: string
+}, 'ForgotPasswordResponse'>
+
+export type UpdatePasswordResponse = ResponseMessage<{
+  message: string
+}, 'UpdatePasswordResponse'>
