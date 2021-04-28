@@ -14,40 +14,55 @@ export type TokenData = {
   exp: number;
   aud: string;
   sub: string;
-  role?: string | string[]
-}
+  role?: string | string[];
+};
 
 export type CustomError = {
-  status: number
-  message: string
-}
+  status: number;
+  message: string;
+};
 
 type ResponsePayload<D> = {
   data?: D;
-  error?: CustomError,
-}
+  error?: CustomError;
+};
 
 type ResponseMessage<D, T extends string = string> = {
   type: T;
-  payload: ResponsePayload<D>
-}
+  payload: ResponsePayload<D>;
+};
 
-export type LoginResponse = ResponseMessage<{
-  token: string
-}, 'LoginResponse'>
+export type LoginResponse = ResponseMessage<
+  {
+    token: string;
+  },
+  'LoginResponse'
+>;
 
-export type LogoutResponse = ResponseMessage<{
-  success: boolean
-}, 'LogoutResponse'>
+export type LogoutResponse = ResponseMessage<
+  {
+    success: boolean;
+  },
+  'LogoutResponse'
+>;
 
-export type RegistrationResponse = ResponseMessage<{
-  success: boolean
-}, 'RegistrationResponse'>
+export type RegistrationResponse = ResponseMessage<
+  {
+    success: boolean;
+  },
+  'RegistrationResponse'
+>;
 
-export type ForgotPasswordResponse = ResponseMessage<{
-  message: string
-}, 'ForgotPasswordResponse'>
+export type ForgotPasswordResponse = ResponseMessage<
+  {
+    message: string;
+  },
+  'ForgotPasswordResponse'
+>;
 
-export type UpdatePasswordResponse = ResponseMessage<{
-  message: string
-}, 'UpdatePasswordResponse'>
+export type UpdatePasswordResponse = ResponseMessage<
+  {
+    message: string;
+  },
+  'UpdatePasswordResponse'
+>;

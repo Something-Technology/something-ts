@@ -7,7 +7,13 @@
  *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-import { getPasswordStrength, JWT_TOKEN, validateEmail, validateToken } from './authorization';
+import {
+  getPasswordStrength,
+  JWT_TOKEN,
+  UNVERIFIED_MAIL_JWT_TOKEN,
+  validateEmail,
+  validateToken,
+} from './authorization';
 
 import type { MessageMocks } from '../../types/socketConnector';
 import {
@@ -17,11 +23,12 @@ import {
   RegistrationResponse,
   UpdatePasswordResponse,
 } from './types';
+import type { SocketMessage } from '../../types/SocketMessage';
 
 export const loginMock: MessageMocks = {
   RegistrationRequest: {
-    createOutgoingMessage: ({ payload }): RegistrationResponse => {
-      const { password } = payload
+    createOutgoingMessage: ({ payload }: SocketMessage): RegistrationResponse => {
+      const { password } = payload;
 
       if (getPasswordStrength(password) < 5) {
         return {
@@ -30,9 +37,9 @@ export const loginMock: MessageMocks = {
             error: {
               status: 42001,
               message: 'Password does not match our criteria.',
-            }
-          }
-        }
+            },
+          },
+        };
       }
       return {
         type: 'RegistrationResponse',
@@ -40,18 +47,55 @@ export const loginMock: MessageMocks = {
           data: {
             success: true,
           },
-        }
-      }
+        },
+      };
     },
     delay: 1000,
   },
   LoginRequest: {
-    createOutgoingMessage: ({ payload }): LoginResponse => {
+    createOutgoingMessage: ({ payload }: SocketMessage): LoginResponse => {
       const { email, password } = payload;
-      const isValidMail = validateEmail(email)
-      const isValidPassword = getPasswordStrength(password) < 5
+      const isValidMail = validateEmail(email);
+      const isValidPassword = getPasswordStrength(password) < 5;
 
       if (!isValidMail || !isValidPassword) {
+        return {
+          type: 'LoginResponse',
+          payload: {
+            error: {
+              status: 401,
+              message: 'Unauthorized!',
+            },
+          },
+        };
+      }
+
+      if (email === 'unverified@something.technology') {
+        return {
+          type: 'LoginResponse',
+          payload: {
+            data: {
+              token: UNVERIFIED_MAIL_JWT_TOKEN,
+            },
+          },
+        };
+      }
+
+      return {
+        type: 'LoginResponse',
+        payload: {
+          data: {
+            token: JWT_TOKEN,
+          },
+        },
+      };
+    },
+    delay: 1000,
+  },
+  SilentLoginRequest: {
+    createOutgoingMessage: ({ payload }: SocketMessage): LoginResponse => {
+      const { token } = payload;
+      if (validateToken(token)) {
         return {
           type: 'LoginResponse',
           payload: {
@@ -67,36 +111,10 @@ export const loginMock: MessageMocks = {
         type: 'LoginResponse',
         payload: {
           data: {
-            token: JWT_TOKEN
+            token: JWT_TOKEN,
           },
         },
       };
-    },
-    delay: 1000,
-  },
-  SilentLoginRequest: {
-    createOutgoingMessage: ({ payload }): LoginResponse => {
-      const { token } = payload;
-      if (validateToken(token)) {
-        return {
-          type: "LoginResponse",
-          payload: {
-            error: {
-              status: 401,
-              message: 'Unauthorized!',
-            }
-          }
-        }
-      }
-
-      return ({
-        type: 'LoginResponse',
-        payload: {
-          data: {
-            token: JWT_TOKEN
-          }
-        }
-      })
     },
     delay: 300,
   },
@@ -104,12 +122,12 @@ export const loginMock: MessageMocks = {
     createOutgoingMessage: (): LogoutResponse => ({
       type: 'LogoutResponse',
       payload: {
-        data: { success: true }
-      }
-    })
+        data: { success: true },
+      },
+    }),
   },
   ForgotPasswordRequest: {
-    createOutgoingMessage: ({ payload }): ForgotPasswordResponse => {
+    createOutgoingMessage: ({ payload }: SocketMessage): ForgotPasswordResponse => {
       const { email } = payload;
 
       if (email.includes('@test.de')) {
@@ -118,24 +136,24 @@ export const loginMock: MessageMocks = {
           payload: {
             error: {
               status: 404,
-              message: 'No user found!'
-            }
-          }
-        }
+              message: 'No user found!',
+            },
+          },
+        };
       }
       return {
         type: 'ForgotPasswordResponse',
         payload: {
           data: {
-            message: 'Confirmation link sent to the inbox.'
-          }
-        }
-      }
-    }
+            message: 'Confirmation link sent to the inbox.',
+          },
+        },
+      };
+    },
   },
   UpdatePasswordRequest: {
-    createOutgoingMessage: ({ payload }): UpdatePasswordResponse => {
-      const { password } = payload
+    createOutgoingMessage: ({ payload }: SocketMessage): UpdatePasswordResponse => {
+      const { password } = payload;
 
       if (getPasswordStrength(password) < 5) {
         return {
@@ -144,22 +162,22 @@ export const loginMock: MessageMocks = {
             error: {
               status: 42001,
               message: 'Password does not match our criteria.',
-            }
-          }
-        }
+            },
+          },
+        };
       }
 
       return {
         type: 'UpdatePasswordResponse',
         payload: {
           data: {
-            message: "Password updated successfully"
-          }
-        }
-      }
+            message: 'Password updated successfully',
+          },
+        },
+      };
     },
     delay: 300,
-  }
+  },
 };
 
 export const defaultMocks: MessageMocks = {

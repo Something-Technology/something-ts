@@ -7,7 +7,7 @@
  *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-import jwtDecode from 'jwt-decode'
+import jwtDecode from 'jwt-decode';
 
 import { TokenData } from './types';
 
@@ -29,17 +29,21 @@ export const getPasswordStrength = (password: string): number => {
   if (password.length >= 8) {
     strength += 1;
   }
-  return strength
-}
+  return strength;
+};
 
 export const validateEmail = (email: string): boolean => {
-  const re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  // eslint-disable-next-line max-len
+  const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
   return re.test(email);
-}
+};
 
 export const validateToken = (token: string): boolean => {
   const { exp } = jwtDecode<TokenData>(token);
-  return (exp - (Date.now() / 1000)) <= 0
-}
+  return exp - Date.now() / 1000 <= 0;
+};
 
-export const JWT_TOKEN = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJRdWFudGVjdHVtIiwiaWF0IjoxNjE5NTIyNTExLCJleHAiOjE2NTEwNTg1MTEsImF1ZCI6Ind3dy5leGFtcGxlLmNvbSIsInN1YiI6InRlc3RAaWtvb2tvLmlvIiwiZW1haWwiOiJqcm9ja2V0QGV4YW1wbGUuY29tIiwicm9sZSI6WyJCYXNpY1VzZXIiLCJQcmVtaXVtVXNlciJdfQ.DYhr3Ip-HbDrPa69kHpOCsgbZHRRptevxHqC5cUwK1w'
+export const JWT_TOKEN =
+  'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJRdWFudGVjdHVtIiwiaWF0IjoxNjE5NTIyNTExLCJleHAiOjE2NTEwNTg1MTEsImF1ZCI6Ind3dy5leGFtcGxlLmNvbSIsInN1YiI6InRlc3RAaWtvb2tvLmlvIiwiZW1haWwiOiJ0ZXN0QGlrb29rby5pbyIsInJvbGUiOlsiQmFzaWNVc2VyIiwiUHJlbWl1bVVzZXIiXSwiZW1haWxfdmVyaWZpZWQiOiJ0cnVlIn0.8upGIyhvbA1UgQyTXxU1H49k0ttxeaeUswKlfECe2dE';
+export const UNVERIFIED_MAIL_JWT_TOKEN =
+  'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJRdWFudGVjdHVtIiwiaWF0IjoxNjE5NTIyNTExLCJleHAiOjE2NTEwNTg1MTEsImF1ZCI6Ind3dy5leGFtcGxlLmNvbSIsInN1YiI6InRlc3RAaWtvb2tvLmlvIiwiZW1haWwiOiJ0ZXN0QGlrb29rby5pbyIsInJvbGUiOlsiQmFzaWNVc2VyIiwiUHJlbWl1bVVzZXIiXSwiZW1haWxfdmVyaWZpZWQiOiJmYWxzZSJ9.BtVrO-e2mgU0xjOGQ7uiw07Hogd4oCg3z1kOlLpwcC8';
