@@ -7,6 +7,7 @@
  *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
+import { isRange, inRange } from 'range_check';
 
 export const isAuthorized = (authorizedIP?: string, forwardedForHeader?: string): boolean => {
   if (!forwardedForHeader || !authorizedIP) {
@@ -17,7 +18,10 @@ export const isAuthorized = (authorizedIP?: string, forwardedForHeader?: string)
   if (forwardedIPs.length > 0) {
     // Last IP appears as the remote address of the request: https://en.wikipedia.org/wiki/X-Forwarded-For
     // It should be checked if this IP is allowed to do the request
-    return forwardedIPs[forwardedIPs.length - 1] === authorizedIP;
+    const forwardedIP = forwardedIPs[forwardedIPs.length - 1];
+    return isRange(authorizedIP)
+      ? inRange(forwardedIP, authorizedIP)
+      : forwardedIP === authorizedIP;
   }
 
   return false;

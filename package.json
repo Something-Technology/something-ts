@@ -39,5 +39,8 @@
     "hooks": {
       "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
     }
+  },
+  "resolutions": {
+    "ssri": "^6.0.2"
   }
 }
