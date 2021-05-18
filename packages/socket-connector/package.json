@@ -1,6 +1,6 @@
 {
   "name": "@something.technology/socket-connector",
-  "version": "0.0.1",
+  "version": "0.0.6",
   "main": "dist/index.js",
   "repository": "https://github.com/Something-Technology/something-ts",
   "author": {
@@ -15,6 +15,7 @@
   "dependencies": {
     "@something.technology/microservice-utilities": "file:../microservice-utilities",
     "express": "^4.17.1",
+    "jwt-decode": "^3.1.2",
     "socket.io": "^4.0.1"
   },
   "devDependencies": {
