@@ -50,6 +50,7 @@ class SocketConnection {
       this.ioClient ||
       io(this.url, {
         path: this.path,
+        rejectUnauthorized: false,
       });
 
     ioClient.connect();
