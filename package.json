@@ -25,6 +25,7 @@
     "test": "lerna run test",
     "lint": "eslint -c ./.eslintrc.js \"*/**/*.ts\" --max-warnings=0",
     "lint:fix": "yarn lint --fix",
+    "type-check": "tsc --noEmit",
     "link-all": "yarn unlink-all && lerna exec --parallel yarn link",
     "unlink-all": "lerna exec --parallel --bail=false yarn unlink",
     "test:commitmsg": "commitlint --from HEAD~1 --to HEAD --verbose"

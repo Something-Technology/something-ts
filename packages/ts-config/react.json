@@ -1,0 +1,10 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "target": "es5",
+    "jsx": "react-jsx",
+    "lib": ["es6", "dom"],
+    "types": ["react", "node"],
+    "skipLibCheck": true
+  }
+}

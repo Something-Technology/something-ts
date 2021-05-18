@@ -1,0 +1,23 @@
+{
+  "name": "@something.technology/redux-connector",
+  "version": "0.0.6",
+  "description": "Connector between redux and socket io ",
+  "main": "dist/index.js",
+  "author": {
+    "name": "Philip Lenhart",
+    "email": "philip.lenhart@something.technology"
+  },
+  "license": "MIT",
+  "scripts": {
+    "build": "rm -rf ./dist && tsc"
+  },
+  "devDependencies": {
+    "typescript": "^4.2.3"
+  },
+  "dependencies": {
+    "@something.technology/microservice-utilities": "file:../microservice-utilities",
+    "redux": "^4.0.5",
+    "socket.io-client": "^4.0.0",
+    "typesafe-actions": "^5.1.0"
+  }
+}

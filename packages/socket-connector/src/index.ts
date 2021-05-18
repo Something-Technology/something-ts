@@ -7,13 +7,13 @@
  *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-import { logger, createLogger } from './logger';
-import { healthcheck } from './express/healthcheck';
-import HTTPStatusCode from './express/types/HTTPStatusCode';
-import KafkaController from './kafka/KafkaController';
-import TopicUpdater from './kafka/TopicUpdater';
-import type { SchemaConfig, SubscriptionCallback, Headers } from './kafka/types';
 
-export { logger, createLogger, healthcheck, HTTPStatusCode, KafkaController, TopicUpdater };
+import { SocketConnectorConfig, MessageMock, MessageMocks } from './types/socketConnector';
+import SocketConnector from './SocketConnector';
+import * as mockUtils from './services/mockUtils';
 
-export type { Headers, SchemaConfig, SubscriptionCallback };
+export { mockUtils };
+
+export type { MessageMock, MessageMocks, SocketConnectorConfig };
+
+export default SocketConnector;

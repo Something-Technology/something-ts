@@ -7,13 +7,36 @@
  *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-import { logger, createLogger } from './logger';
-import { healthcheck } from './express/healthcheck';
-import HTTPStatusCode from './express/types/HTTPStatusCode';
-import KafkaController from './kafka/KafkaController';
-import TopicUpdater from './kafka/TopicUpdater';
-import type { SchemaConfig, SubscriptionCallback, Headers } from './kafka/types';
+import { Socket } from 'socket.io';
+import { logger } from '@something.technology/microservice-utilities';
+import type { SocketClientsMap } from './types';
 
-export { logger, createLogger, healthcheck, HTTPStatusCode, KafkaController, TopicUpdater };
+class ClientManager {
+  private static instance: ClientManager;
 
-export type { Headers, SchemaConfig, SubscriptionCallback };
+  private connectedClients: SocketClientsMap = {};
+
+  public static getInstance(): ClientManager {
+    if (!this.instance) {
+      this.instance = new ClientManager();
+    }
+    return this.instance;
+  }
+
+  public addClient(socket: Socket): void {
+    const { id } = socket;
+    if (!this.connectedClients[id]) {
+      logger.debug('Added client %s', id);
+      this.connectedClients[id] = { id, socket };
+    }
+  }
+
+  public deleteClient(id: string): void {
+    if (this.connectedClients[id]) {
+      logger.debug('Removed client %s', id);
+      delete this.connectedClients[id];
+    }
+  }
+}
+
+export default ClientManager;

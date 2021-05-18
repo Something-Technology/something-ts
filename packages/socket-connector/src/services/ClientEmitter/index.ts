@@ -7,13 +7,16 @@
  *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-import { logger, createLogger } from './logger';
-import { healthcheck } from './express/healthcheck';
-import HTTPStatusCode from './express/types/HTTPStatusCode';
-import KafkaController from './kafka/KafkaController';
-import TopicUpdater from './kafka/TopicUpdater';
-import type { SchemaConfig, SubscriptionCallback, Headers } from './kafka/types';
 
-export { logger, createLogger, healthcheck, HTTPStatusCode, KafkaController, TopicUpdater };
+import { Socket } from 'socket.io';
+import { MESSAGE_EVENT_NAME } from '../../config/constants';
+import type { SocketMessage } from '../../types/SocketMessage';
 
-export type { Headers, SchemaConfig, SubscriptionCallback };
+class ClientEmitter {
+  // TODO: check if we need to enhance this with meta data
+  public static emit(socket: Socket, messageData: SocketMessage): void {
+    socket.emit(MESSAGE_EVENT_NAME, messageData);
+  }
+}
+
+export default ClientEmitter;

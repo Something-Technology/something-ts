@@ -3,6 +3,74 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 0.0.14 (2021-04-28)
+
+**Note:** Version bump only for package @something.technology/ts-config
+
+
+
+
+
+## 0.0.13 (2021-04-27)
+
+**Note:** Version bump only for package @something.technology/ts-config
+
+
+
+
+
+## 0.0.12 (2021-04-15)
+
+**Note:** Version bump only for package @something.technology/ts-config
+
+
+
+
+
+## 0.0.11 (2021-04-14)
+
+
+### Bug Fixes
+
+* add redux-connector and socket-connector libraries to readme ([c50f8c4](https://github.com/Something-Technology/something-ts/commit/c50f8c43d710ba65a2d2927ef2344cc9eddaba23))
+
+
+
+
+
+## 0.0.10 (2021-04-14)
+
+**Note:** Version bump only for package @something.technology/ts-config
+
+
+
+
+
+## 0.0.9 (2021-03-23)
+
+**Note:** Version bump only for package @something.technology/ts-config
+
+
+
+
+
+## [0.0.8](https://github.com/Something-Technology/something-ts/compare/@something.technology/ts-config@0.0.7...@something.technology/ts-config@0.0.8) (2021-03-23)
+
+
+### Bug Fixes
+
+* add README ([32f7ffc](https://github.com/Something-Technology/something-ts/commit/32f7ffce6a5fbcfa4dde1ee2dcc096ac38ff92d1))
+* add ts configs to files ([854062b](https://github.com/Something-Technology/something-ts/commit/854062bbb3f6b54a9d3badc71adf936b044af32d))
+
+
+### Performance Improvements
+
+* add separate tsconfigs for react and react native and adapt eslint and prettier configs according to our needs ([ace665f](https://github.com/Something-Technology/something-ts/commit/ace665fe0381fb11b1c369fa504f89e77915ea03))
+
+
+
+
+
 ## 0.0.7 (2021-02-26)
 
 

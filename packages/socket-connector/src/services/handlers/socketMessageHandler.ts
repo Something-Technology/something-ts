@@ -7,13 +7,33 @@
  *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-import { logger, createLogger } from './logger';
-import { healthcheck } from './express/healthcheck';
-import HTTPStatusCode from './express/types/HTTPStatusCode';
-import KafkaController from './kafka/KafkaController';
-import TopicUpdater from './kafka/TopicUpdater';
-import type { SchemaConfig, SubscriptionCallback, Headers } from './kafka/types';
 
-export { logger, createLogger, healthcheck, HTTPStatusCode, KafkaController, TopicUpdater };
+import { Socket } from 'socket.io';
+import { logger } from '@something.technology/microservice-utilities';
+import type { SocketMessage } from '../../types/SocketMessage';
+import Configuration from '../Configuration';
+import ClientEmitter from '../ClientEmitter';
 
-export type { Headers, SchemaConfig, SubscriptionCallback };
+const sendMocked = (socket: Socket, message: SocketMessage): boolean => {
+  const mocks = Configuration.getInstance().getMocks();
+  if (mocks && mocks[message.type]) {
+    const { createOutgoingMessage, delay = 100 } = mocks[message.type];
+    const outgoingMsg = createOutgoingMessage(message);
+    if (outgoingMsg) {
+      setTimeout(() => {
+        ClientEmitter.emit(socket, outgoingMsg);
+      }, delay);
+      return true;
+    }
+  }
+  return false;
+};
+
+// eslint-disable-next-line import/prefer-default-export
+export const handleSocketMessage = (socket: Socket, incomingMessage: SocketMessage): void => {
+  logger.info('Received message from socket %s with data: %o', socket.id, incomingMessage);
+
+  if (!sendMocked(socket, incomingMessage)) {
+    // TODO: add real implementation
+  }
+};

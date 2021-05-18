@@ -17,4 +17,6 @@ export default {
       ],
     },
   ],
+  'react/require-default-props': LintingLevel.OFF, // not needed with typescript
+  'react/react-in-jsx-scope': LintingLevel.OFF, // with react-jsx in tsconfig this is not needed anymore
 };
