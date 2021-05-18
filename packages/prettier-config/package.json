@@ -1,6 +1,6 @@
 {
   "name": "@something.technology/prettier-config",
-  "version": "0.0.14",
+  "version": "0.0.15",
   "description": "Shared TypeScript config all our typescript based projects",
   "license": "MIT",
   "author": {
