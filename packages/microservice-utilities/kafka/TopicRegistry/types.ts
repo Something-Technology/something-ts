@@ -7,24 +7,20 @@
  *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-import { isRange, inRange } from 'range_check';
+import { schema } from 'avsc';
+import RecordType = schema.RecordType;
 
-export const isAuthorized = (authorizedIP?: string, forwardedForHeader?: string): boolean => {
-  if (!forwardedForHeader || !authorizedIP) {
-    return true;
-  }
-
-  const forwardedIPs = forwardedForHeader.split(',').map(ip => ip.trim());
-  if (forwardedIPs.length > 0) {
-    // Last IP appears as the remote address of the request: https://en.wikipedia.org/wiki/X-Forwarded-For
-    // It should be checked if this IP is allowed to do the request
-    const forwardedIP = forwardedIPs[forwardedIPs.length - 1];
-    return isRange(authorizedIP)
-      ? inRange(forwardedIP, authorizedIP)
-      : forwardedIP === authorizedIP;
-  }
-
-  return false;
+export type AvroSchemaConfig = {
+  identifier: string;
+  version: string;
+  creationDate: string;
+  schemes: {
+    [key: string]: RecordType;
+  };
 };
 
-export default { isAuthorized };
+export type RegisteredTopicSchema = {
+  registryId: number;
+  schema: RecordType;
+  topicName: string;
+};

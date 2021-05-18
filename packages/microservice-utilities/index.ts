@@ -10,5 +10,10 @@
 import { logger, createLogger } from './logger';
 import { healthcheck } from './express/healthcheck';
 import HTTPStatusCode from './express/types/HTTPStatusCode';
+import KafkaController from './kafka/KafkaController';
+import TopicUpdater from './kafka/TopicUpdater';
+import type { SchemaConfig, SubscriptionCallback, Headers } from './kafka/types';
 
-export { logger, createLogger, healthcheck, HTTPStatusCode };
+export { logger, createLogger, healthcheck, HTTPStatusCode, KafkaController, TopicUpdater };
+
+export type { Headers, SchemaConfig, SubscriptionCallback };

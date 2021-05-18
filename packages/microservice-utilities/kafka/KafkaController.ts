@@ -7,24 +7,39 @@
  *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-import { isRange, inRange } from 'range_check';
+import KafkaTS from './KafkaTS';
+import { KafkaMessageValue, SubscriptionCallback, Headers, KafkaTSConfig } from './types';
 
-export const isAuthorized = (authorizedIP?: string, forwardedForHeader?: string): boolean => {
-  if (!forwardedForHeader || !authorizedIP) {
-    return true;
+class KafkaController {
+  private kafka: KafkaTS;
+
+  constructor(config: KafkaTSConfig) {
+    this.kafka = new KafkaTS(config);
   }
 
-  const forwardedIPs = forwardedForHeader.split(',').map(ip => ip.trim());
-  if (forwardedIPs.length > 0) {
-    // Last IP appears as the remote address of the request: https://en.wikipedia.org/wiki/X-Forwarded-For
-    // It should be checked if this IP is allowed to do the request
-    const forwardedIP = forwardedIPs[forwardedIPs.length - 1];
-    return isRange(authorizedIP)
-      ? inRange(forwardedIP, authorizedIP)
-      : forwardedIP === authorizedIP;
+  public async init(): Promise<void> {
+    return this.kafka.init();
   }
 
-  return false;
-};
+  public async addTopicSubscription<M>(
+    topicName: string,
+    callback: SubscriptionCallback<M>
+  ): Promise<void> {
+    return this.kafka.subscribeTopic(topicName, callback);
+  }
 
-export default { isAuthorized };
+  public async run(): Promise<void> {
+    return this.kafka.runConsumer();
+  }
+
+  public async produce<M = KafkaMessageValue>(
+    topicName: string,
+    value: M,
+    headers?: Headers
+    // onError?: OnProducerError<M>
+  ): Promise<void> {
+    return this.kafka.produceMessage(topicName, value, headers);
+  }
+}
+
+export default KafkaController;
