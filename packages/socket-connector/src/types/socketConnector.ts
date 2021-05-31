@@ -11,7 +11,9 @@
 import type { SocketMessage } from './SocketMessage';
 
 export type MessageMock = {
-  createOutgoingMessage: (incomingMessage: SocketMessage) => SocketMessage | undefined;
+  createOutgoingMessage: (
+    incomingMessage: SocketMessage
+  ) => SocketMessage | SocketMessage[] | undefined;
   delay?: number;
 };
 

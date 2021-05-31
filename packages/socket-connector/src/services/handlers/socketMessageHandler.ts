@@ -21,7 +21,13 @@ const sendMocked = (socket: Socket, message: SocketMessage): boolean => {
     const outgoingMsg = createOutgoingMessage(message);
     if (outgoingMsg) {
       setTimeout(() => {
-        ClientEmitter.emit(socket, outgoingMsg);
+        if (Array.isArray(outgoingMsg)) {
+          outgoingMsg.forEach(msg => {
+            ClientEmitter.emit(socket, msg);
+          });
+        } else {
+          ClientEmitter.emit(socket, outgoingMsg);
+        }
       }, delay);
       return true;
     }
