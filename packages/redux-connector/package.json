@@ -15,7 +15,6 @@
     "typescript": "^4.2.3"
   },
   "dependencies": {
-    "@something.technology/microservice-utilities": "file:../microservice-utilities",
     "redux": "^4.0.5",
     "socket.io-client": "^4.0.0",
     "typesafe-actions": "^5.1.0"

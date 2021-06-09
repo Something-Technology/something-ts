@@ -9,7 +9,6 @@
  */
 
 import { io, Socket } from 'socket.io-client';
-import { logger } from '@something.technology/microservice-utilities';
 import { AnyAction, Dispatch } from 'redux';
 import {
   DEFAULT_CRITERIA,
@@ -144,7 +143,8 @@ class SocketConnection {
       if (this.ioClient?.connected) {
         this.ioClient.emit(this.eventName, socketMessage);
       } else {
-        logger.error('No socket connection established. Please create connection first.');
+        // eslint-disable-next-line no-console
+        console.error('No socket connection established. Please create connection first.');
       }
     }
 
