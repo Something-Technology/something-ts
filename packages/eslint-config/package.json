@@ -1,6 +1,6 @@
 {
   "name": "@something.technology/eslint-config",
-  "version": "0.0.16",
+  "version": "0.0.17",
   "description": "Shared ESLint config for all our typescript based projects",
   "license": "MIT",
   "author": {

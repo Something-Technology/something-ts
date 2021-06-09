@@ -1,6 +1,6 @@
 {
   "name": "@something.technology/redux-connector",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "description": "Connector between redux and socket io ",
   "main": "dist/index.js",
   "author": {

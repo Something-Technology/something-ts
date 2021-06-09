@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 0.0.17 (2021-06-09)
+
+
+### Bug Fixes
+
+* remove micrsoservice-utilities dependency from redux connector because node based modules are not working in react native and the browser ([7168ea9](https://github.com/Something-Technology/something-ts/commit/7168ea95434f59b31d8e38cf6259f9a5f32fda96))
+
+
+
+
+
 ## 0.0.16 (2021-05-31)
 
 **Note:** Version bump only for package @something.technology/prettier-config
