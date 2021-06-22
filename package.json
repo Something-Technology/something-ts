@@ -31,7 +31,7 @@
     "lint": "eslint -c ./.eslintrc.js \"*/**/*.ts\" --max-warnings=0",
     "lint:fix": "yarn lint --fix",
     "type-check": "tsc --noEmit",
-    "link-all": "yarn unlink-all && lerna exec --parallel yarn link",
+    "link-all": "lerna exec --parallel yarn link",
     "unlink-all": "lerna exec --parallel --bail=false yarn unlink",
     "test:commitmsg": "commitlint --from HEAD~1 --to HEAD --verbose"
   },
@@ -39,8 +39,5 @@
     "hooks": {
       "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
     }
-  },
-  "resolutions": {
-    "ssri": "^6.0.2"
   }
 }

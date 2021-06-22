@@ -16,19 +16,21 @@ import { disconnectSocketConnection, openSocketConnection } from './actions';
 const createSocketMiddleware = <A extends AnyAction, S>(
   socketConection: SocketConnection
 ): Middleware => {
-  return ({ dispatch }: MiddlewareAPI<Dispatch, S>) => (next: Dispatch<A>) => (action: A): A => {
-    if (action.type === getType(openSocketConnection)) {
-      socketConection.openConnection(dispatch);
-      return next(action);
-    }
+  return ({ dispatch }: MiddlewareAPI<Dispatch, S>) =>
+    (next: Dispatch<A>) =>
+    (action: A): A => {
+      if (action.type === getType(openSocketConnection)) {
+        socketConection.openConnection(dispatch);
+        return next(action);
+      }
 
-    if (action.type === getType(disconnectSocketConnection)) {
-      socketConection.disconnect();
-      return next(action);
-    }
+      if (action.type === getType(disconnectSocketConnection)) {
+        socketConection.disconnect();
+        return next(action);
+      }
 
-    return socketConection.send(action, next);
-  };
+      return socketConection.send(action, next);
+    };
 };
 
 export default createSocketMiddleware;

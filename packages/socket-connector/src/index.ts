@@ -11,8 +11,9 @@
 import { SocketConnectorConfig, MessageMock, MessageMocks } from './types/socketConnector';
 import SocketConnector from './SocketConnector';
 import * as mockUtils from './services/mockUtils';
+import ClientManager from './services/ClientManager';
 
-export { mockUtils };
+export { mockUtils, ClientManager };
 
 export type { MessageMock, MessageMocks, SocketConnectorConfig };
 

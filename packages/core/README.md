@@ -39,7 +39,7 @@ npx @something.technology/core init-configs <targetDirectory>
 ```
 
 For example when initializing a new service  in the current working directory you can type:
-`npx @something.technology/core init .`.
+`npx @something.technology/core init-configs .`.
 
 **Options:**
 

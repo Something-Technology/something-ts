@@ -18,7 +18,7 @@ import { handleSocketMessage } from '../handlers/socketMessageHandler';
 
 const startListening = (socket: Socket): void => {
   socket.on(MESSAGE_EVENT_NAME, async (message: SocketMessage) => {
-    handleSocketMessage(socket, message);
+    await handleSocketMessage(socket, message);
   });
 
   socket.on(DISCONNECT_EVENT_NAME, async (disconnectMessage: string) => {

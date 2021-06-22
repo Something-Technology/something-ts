@@ -8,6 +8,7 @@
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
+import { KafkaController } from '@something.technology/microservice-utilities';
 import { MessageMocks } from '../../types/socketConnector';
 
 class Configuration {
@@ -15,11 +16,25 @@ class Configuration {
 
   private messageMocks: MessageMocks | undefined;
 
+  private kafkaController: KafkaController | undefined;
+
   public static getInstance(): Configuration {
     if (!this.instance) {
       this.instance = new Configuration();
     }
     return this.instance;
+  }
+
+  public setKafkaController(kafkaController: KafkaController): void {
+    this.kafkaController = kafkaController;
+  }
+
+  public getKafkaController(): KafkaController {
+    if (!this.kafkaController) {
+      throw new Error('setKafkaController needs to be called first!');
+    }
+
+    return this.kafkaController;
   }
 
   public setMocks(messageMocks?: MessageMocks): void {

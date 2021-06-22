@@ -12,8 +12,17 @@ import { healthcheck } from './express/healthcheck';
 import HTTPStatusCode from './express/types/HTTPStatusCode';
 import KafkaController from './kafka/KafkaController';
 import TopicUpdater from './kafka/TopicUpdater';
+import { ConsumeCallbackMessage, MessageDirection } from './kafka/types';
 import type { SchemaConfig, SubscriptionCallback, Headers } from './kafka/types';
 
-export { logger, createLogger, healthcheck, HTTPStatusCode, KafkaController, TopicUpdater };
+export {
+  logger,
+  createLogger,
+  healthcheck,
+  HTTPStatusCode,
+  KafkaController,
+  MessageDirection,
+  TopicUpdater,
+};
 
-export type { Headers, SchemaConfig, SubscriptionCallback };
+export type { Headers, SchemaConfig, SubscriptionCallback, ConsumeCallbackMessage };

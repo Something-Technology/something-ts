@@ -10,6 +10,7 @@
 import { Socket } from 'socket.io';
 import { logger } from '@something.technology/microservice-utilities';
 import type { SocketClientsMap } from './types';
+import { SocketClient } from './types';
 
 class ClientManager {
   private static instance: ClientManager;
@@ -29,6 +30,10 @@ class ClientManager {
       logger.debug('Added client %s', id);
       this.connectedClients[id] = { id, socket };
     }
+  }
+
+  public getClient(id: string): SocketClient | undefined {
+    return this.connectedClients[id];
   }
 
   public deleteClient(id: string): void {

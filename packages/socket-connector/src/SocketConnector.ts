@@ -9,33 +9,50 @@
  */
 
 import express, { Express } from 'express';
-import { logger, healthcheck } from '@something.technology/microservice-utilities';
+import {
+  logger,
+  healthcheck,
+  SubscriptionCallback,
+} from '@something.technology/microservice-utilities';
 import { createServer } from 'http';
 import { HEALTHCHECK_ROUTE, PORT } from './config/server';
 import SocketConnection from './services/SocketConnection';
 import { SocketConnectorConfig } from './types/socketConnector';
 import Configuration from './services/Configuration';
+import { handleKafkaMessage } from './services/handlers/kafkaMessageHandler';
 
 class SocketConnector {
   private socketServerPath: string;
 
   private serviceId: string;
 
+  private onKafkaMessage: SubscriptionCallback;
+
   constructor({
     socketServerPath = '/socket',
     serviceId,
     responseMessageMocks,
+    kafkaController,
+    onKafkaMessage,
   }: SocketConnectorConfig) {
     this.serviceId = serviceId;
     this.socketServerPath = socketServerPath;
+    this.onKafkaMessage = onKafkaMessage || handleKafkaMessage;
 
+    Configuration.getInstance().setKafkaController(kafkaController);
     Configuration.getInstance().setMocks(responseMessageMocks);
   }
 
   public async start(): Promise<void> {
     logger.debug('Going to start %s ...', this.serviceId);
+
     const app: Express = express();
     const server = createServer(app);
+
+    const kafkaController = Configuration.getInstance().getKafkaController();
+    await kafkaController.init();
+    await kafkaController.subscribeToAll(this.onKafkaMessage);
+    await kafkaController.run();
 
     SocketConnection.getInstance().create(server, this.socketServerPath);
 

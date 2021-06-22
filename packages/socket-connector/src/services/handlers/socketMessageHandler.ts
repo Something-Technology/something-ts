@@ -36,10 +36,15 @@ const sendMocked = (socket: Socket, message: SocketMessage): boolean => {
 };
 
 // eslint-disable-next-line import/prefer-default-export
-export const handleSocketMessage = (socket: Socket, incomingMessage: SocketMessage): void => {
+export const handleSocketMessage = async (
+  socket: Socket,
+  incomingMessage: SocketMessage
+): Promise<void> => {
   logger.info('Received message from socket %s with data: %o', socket.id, incomingMessage);
 
   if (!sendMocked(socket, incomingMessage)) {
-    // TODO: add real implementation
+    const kafkaController = Configuration.getInstance().getKafkaController();
+    // TODO: check how to pass payload to message and also headers etc
+    await kafkaController.produce(incomingMessage.type, incomingMessage.payload);
   }
 };

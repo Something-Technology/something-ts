@@ -10,9 +10,10 @@
 
 import { CompressionTypes, Consumer, Producer } from 'kafkajs';
 import { logger } from '../../logger';
-import { SubscriptionCallback, SchemaConfig, Headers, KafkaTSConfig } from '../types';
+import { Headers, KafkaTSConfig, SchemaConfig, SubscriptionCallback } from '../types';
 import { avroToTypescript, stringifyBuffered } from './utilities';
 import KafkaProvider from '../KafkaProvider';
+import { checkAllowedToConsume, checkAllowedToProduce } from '../utils';
 
 class KafkaTS extends KafkaProvider {
   private schemaConfigs: SchemaConfig[];
@@ -57,6 +58,8 @@ class KafkaTS extends KafkaProvider {
 
   async subscribeTopic(name: string, callback: SubscriptionCallback): Promise<void> {
     logger.info('Subscribe to %s', name);
+    checkAllowedToConsume(name, this.schemaConfigs);
+
     await this.consumer.subscribe({ topic: name, fromBeginning: false });
 
     const subscriptions = this.topicSubscriptions.get(name) || [];
@@ -117,6 +120,8 @@ class KafkaTS extends KafkaProvider {
 
   async produceMessage<M>(topic: string, value: M, headers?: Headers): Promise<void> {
     try {
+      checkAllowedToProduce(topic, this.schemaConfigs);
+
       // This will throw an error when value does not match the registerd schema
       // Additional parameters which are not in schema will be lost due to the encoding
       const encodedMessageValue = await this.topicRegistry.encodeMessageValue(topic, value);

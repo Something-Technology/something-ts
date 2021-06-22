@@ -36,7 +36,6 @@ import RequestHeaders from './types/RequestHeaders';
  *
  * @param request ExpressJS Request object
  * @param response ExpressJS Response object
- * @param allowedHealthcheckIP
  */
 export const healthcheck = (request: Request, response: Response): void => {
   const header = request.headers[RequestHeaders.X_FORWARDED_FOR] as string;

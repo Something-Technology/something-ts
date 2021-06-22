@@ -7,7 +7,7 @@
  *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-import { Admin } from 'kafkajs';
+import { Admin, ITopicConfig } from 'kafkajs';
 import type { KafkaTSConfig, SchemaConfig } from './types';
 import KafkaProvider from './KafkaProvider';
 
@@ -32,16 +32,25 @@ class TopicUpdater extends KafkaProvider {
 
     await Promise.all(schemaRegistrations); // returns schema IDs as an array
 
-    // TODO: check if topic already exists in kafka
-    await this.kafkaAdmin.createTopics({
-      validateOnly: false,
-      waitForLeaders: true,
-      topics: this.schemaConfigs.map(({ topicName }) => ({
-        topic: topicName,
-        numPartitions: 1, // default: 1
-        replicationFactor: Math.max(1, this.getNumberOfBrokers() - 1),
-      })),
-    });
+    const existingTopics = await this.kafkaAdmin.listTopics();
+    const newTopics = this.schemaConfigs.reduce((filtered: ITopicConfig[], { topicName }) => {
+      if (!existingTopics.includes(topicName)) {
+        filtered.push({
+          topic: topicName,
+          numPartitions: 1, // default: 1
+          replicationFactor: Math.max(1, this.getNumberOfBrokers() - 1),
+        });
+      }
+      return filtered;
+    }, []);
+
+    if (newTopics.length) {
+      await this.kafkaAdmin.createTopics({
+        validateOnly: false,
+        waitForLeaders: true,
+        topics: newTopics,
+      });
+    }
   }
 
   public async run(): Promise<void> {

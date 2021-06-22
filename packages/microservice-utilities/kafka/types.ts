@@ -10,9 +10,26 @@
 import { schema } from 'avsc';
 import RecordType = schema.RecordType;
 
+export enum MessageDirection {
+  INCOMING = 'INCOMING',
+  OUTGOING = 'OUTGOING',
+  BIDIRECTIONAL = 'BIDIRECTIONAL', // TODO: check if this is a valid case
+}
+
 export type SchemaConfig = {
   schema: RecordType;
   topicName: string;
+  direction: MessageDirection;
+};
+
+type KafkaInstanceConfig = {
+  id: string;
+  messages: SchemaConfig[];
+};
+
+export type KafkaControllerConfig = {
+  clientId: string;
+  kafkaConfigs: KafkaInstanceConfig[];
 };
 
 export type KafkaTSConfig = {
@@ -28,12 +45,13 @@ export type KafkaMessageValue = any;
 
 export type Headers = { [key: string]: string };
 
-type ConsumeCallbackMessage<M> = {
+export type ConsumeCallbackMessage<M> = {
   topic: string;
   message: M;
   headers?: Headers;
   timestamp: string;
 };
+
 export type SubscriptionCallback<M = KafkaMessageValue> = (
   msg: ConsumeCallbackMessage<M>
 ) => Promise<void>;
